@@ -71,15 +71,6 @@ void AActionRPGCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 	// handle touch devices
 	PlayerInputComponent->BindTouch(IE_Pressed, this, &AActionRPGCharacter::TouchStarted);
 	PlayerInputComponent->BindTouch(IE_Released, this, &AActionRPGCharacter::TouchStopped);
-
-	// VR headset functionality
-	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &AActionRPGCharacter::OnResetVR);
-}
-
-
-void AActionRPGCharacter::OnResetVR()
-{
-	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
 }
 
 void AActionRPGCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
