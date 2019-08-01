@@ -4,3 +4,5 @@ Intermediate/
 *.sln
 Saved/
 DerivedDataCache/
+.vscode/
+ActionRPG.code-workspace
