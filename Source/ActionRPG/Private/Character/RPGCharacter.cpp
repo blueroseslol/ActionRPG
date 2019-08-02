@@ -5,8 +5,10 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+
 #include "ActionRPG.h"
 
+#include "Abilities/Base/Abilities/GA_SkillBase.h"
 
 ARPGCharacter::ARPGCharacter()
 {
@@ -41,6 +43,11 @@ ARPGCharacter::ARPGCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
+
+	/**
+	 * 这里开始注册技能
+	 */
+	GameplayAbilities.Push(UGA_SkillBase::StaticClass());
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -63,6 +70,9 @@ void ARPGCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInput
 	PlayerInputComponent->BindAxis("TurnRate", this, &ARPGCharacter::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ARPGCharacter::LookUpAtRate);
+
+
+	PlayerInputComponent->BindAction("CastBaseSkill", IE_Pressed, this, &ARPGCharacter::CastBaseSkill);
 }
 
 void ARPGCharacter::TurnAtRate(float Rate)
@@ -75,6 +85,15 @@ void ARPGCharacter::LookUpAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
+}
+
+void ARPGCharacter::CastBaseSkill()
+{
+	UE_LOG(LogActionRPG, Warning, TEXT("%s"), *FString("Start Try!"));
+	TSubclassOf<UGA_SkillBase> SkillBase = UGA_SkillBase::StaticClass();
+	if (AbilitySystemComponent->TryActivateAbilityByClass(SkillBase)) {
+		UE_LOG(LogActionRPG, Warning, TEXT("%s"), *FString("Try Complete!"));
+	}
 }
 
 void ARPGCharacter::MoveForward(float Value)

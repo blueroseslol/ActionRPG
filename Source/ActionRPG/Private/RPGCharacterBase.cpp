@@ -1,7 +1,6 @@
 #include "RPGCharacterBase.h"
 #include "GameFramework/Controller.h"
 #include "Abilities/GameplayAbilityTypes.h"
-#include "Abilities/Base/RPGAbilitySystemComponent.h"
 #include "Abilities/Base/RPGGameplayAbility.h"
 #include "ActionRPG.h"
 

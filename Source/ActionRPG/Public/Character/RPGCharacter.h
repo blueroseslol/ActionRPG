@@ -45,6 +45,8 @@ protected:
 	 */
 	void LookUpAtRate(float Rate);
 
+	/** 施放测试用技能 */
+	void CastBaseSkill();
 protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 

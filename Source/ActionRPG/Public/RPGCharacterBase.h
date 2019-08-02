@@ -4,9 +4,8 @@
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
 #include "Abilities/Base/RPGAttributeSet.h"
+#include "Abilities/Base/RPGAbilitySystemComponent.h"
 #include "RPGCharacterBase.generated.h"
-
-class URPGGameplayAbility;
 
 UCLASS(config = Game)
 class ACTIONRPG_API ARPGCharacterBase : public ACharacter, public IAbilitySystemInterface
@@ -15,7 +14,7 @@ class ACTIONRPG_API ARPGCharacterBase : public ACharacter, public IAbilitySystem
 protected:
 	//用于存储角色类的GameplayAbility并且在角色启用时注册
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Abilities)
-		TArray<TSubclassOf<URPGGameplayAbility>> GameplayAbilities;
+	TArray<TSubclassOf<URPGGameplayAbility>> GameplayAbilities;
 
 	//GameplayAbility组件
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = GameplayAbilities, meta = (AllowPrivateAccess = "true"))
