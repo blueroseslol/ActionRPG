@@ -1,5 +1,6 @@
-#include "Abilities/Base/RPGAttributeSet.h"
+﻿#include "Abilities/Base/RPGAttributeSet.h"
 #include "Abilities/Base/RPGAbilitySystemComponent.h"
+#include "ActionRPG.h"
 //#include "RPGCharacterBase.h"
 //#include "GameplayEffect.h"
 //#include "GameplayEffectExtension.h"
@@ -14,6 +15,7 @@ void URPGAttributeSet::PreAttributeChange(const FGameplayAttribute & Attribute, 
 {
 	Super::PreAttributeChange(Attribute, NewValue);
 
+	UE_LOG(LogActionRPG, Warning, TEXT("%s"), *FString(Attribute.AttributeName+FString::SanitizeFloat(NewValue)));
 	if (Attribute == GetMaxHealthAttribute())
 	{
 		AdjustAttributeForMaxChange(Health, MaxHealth, NewValue, GetHealthAttribute());

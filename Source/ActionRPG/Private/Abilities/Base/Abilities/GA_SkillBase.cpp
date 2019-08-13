@@ -1,4 +1,5 @@
 #include "Abilities/Base/Abilities/GA_SkillBase.h"
+#include "Abilities/Base/Effects/GE_DamageBase.h"
 #include "ActionRPG.h"
 UGA_SkillBase::UGA_SkillBase()
 {
@@ -37,6 +38,9 @@ void UGA_SkillBase::ActivateAbility(const FGameplayAbilitySpecHandle Handle, con
 		{			
 			//	Then do more stuff...
 			UE_LOG(LogActionRPG, Warning, TEXT("%s"), *FString("A Ablities Activate"));
+
+			const UGameplayEffect* GameplayEffect = NewObject<UGE_DamageBase>();
+			ApplyGameplayEffectToOwner(CurrentSpecHandle, CurrentActorInfo, CurrentActivationInfo, GameplayEffect, 1, 1);
 
 			K2_EndAbility();
 		}
