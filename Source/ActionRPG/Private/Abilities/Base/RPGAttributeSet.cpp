@@ -6,7 +6,7 @@
 //#include "GameplayEffectExtension.h"
 
 URPGAttributeSet::URPGAttributeSet() :
-	Health(100), MaxHealth(100),
+	Health(100), MaxHealth(100),Mana(10),MaxMana(10),
 	AttackPower(1), DefensePower(0), Damage(0), MoveSpeed(300)
 {
 }

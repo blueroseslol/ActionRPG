@@ -21,7 +21,7 @@ UGE_DamageBase::UGE_DamageBase()
 	info.ModifierOp = EGameplayModOp::Additive;
 	
 	//固定值
-	info.ModifierMagnitude = FGameplayEffectModifierMagnitude(FScalableFloat(100.0));
+	//info.ModifierMagnitude = FGameplayEffectModifierMagnitude(FScalableFloat(100.0));
 
 	//CurveTable控制
 	/*
@@ -34,6 +34,23 @@ UGE_DamageBase::UGE_DamageBase()
 
 	info.ModifierMagnitude = FGameplayEffectModifierMagnitude(damageValue);
 	*/
+
+	FAttributeBasedFloat damageValue;
+	damageValue.Coefficient = { 1.2f };
+	damageValue.PreMultiplyAdditiveValue = { 1.0f };
+	damageValue.PostMultiplyAdditiveValue = { 2.0f };
+	damageValue.BackingAttribute = FGameplayEffectAttributeCaptureDefinition(FGameplayAttribute(FindFieldChecked<UProperty>(URPGAttributeSet::StaticClass(), GET_MEMBER_NAME_CHECKED(URPGAttributeSet, Health)))
+		, EGameplayEffectAttributeCaptureSource::Source, false);
+	FCurveTableRowHandle damageCurve;
+	static ConstructorHelpers::FObjectFinder<UCurveTable> curveAsset(TEXT("/Game/ActionRPG/DataTable/Damage"));
+	damageCurve.CurveTable = curveAsset.Object;
+	damageCurve.RowName = FName("Damage");
+	damageValue.AttributeCurve = damageCurve;
+	damageValue.AttributeCalculationType = EAttributeBasedFloatCalculationType::AttributeMagnitude;
+
+	info.ModifierMagnitude = damageValue;
+
+
 	//info.SourceTags=
 	//info.TargetTags=
 	Modifiers.Add(info);
