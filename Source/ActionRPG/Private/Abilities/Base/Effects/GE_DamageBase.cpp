@@ -1,5 +1,6 @@
 ﻿#include "Abilities/Base/Effects/GE_DamageBase.h"
 #include "Abilities/Base/RPGAttributeSet.h"
+#include "Abilities/Base/Calculation/DamageMagnitudeCalculation.h"
 #include "UObject/ConstructorHelpers.h"
 UGE_DamageBase::UGE_DamageBase()
 {
@@ -34,7 +35,7 @@ UGE_DamageBase::UGE_DamageBase()
 
 	info.ModifierMagnitude = FGameplayEffectModifierMagnitude(damageValue);
 	*/
-
+	/*
 	FAttributeBasedFloat damageValue;
 	damageValue.Coefficient = { 1.2f };
 	damageValue.PreMultiplyAdditiveValue = { 1.0f };
@@ -49,7 +50,16 @@ UGE_DamageBase::UGE_DamageBase()
 	damageValue.AttributeCalculationType = EAttributeBasedFloatCalculationType::AttributeMagnitude;
 
 	info.ModifierMagnitude = damageValue;
+	*/
 
+
+	FCustomCalculationBasedFloat damageValue;
+	damageValue.CalculationClassMagnitude = UDamageMagnitudeCalculation::StaticClass();
+	damageValue.Coefficient = { 1.2f };
+	damageValue.PreMultiplyAdditiveValue = { 1.0f };
+	damageValue.PostMultiplyAdditiveValue = { 2.0f };
+
+	info.ModifierMagnitude = damageValue;
 
 	//info.SourceTags=
 	//info.TargetTags=
